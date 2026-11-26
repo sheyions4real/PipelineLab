@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/MCPServer.Tests/">
-    <Project Path="MCPServer.Tests/McpServer.Tests.csproj" />
+    <Project Path="MCPServer.Tests/MCPServer.Tests.csproj" />
   </Folder>
   <Project Path="MCPServer/MCPServer.csproj" />
 </Solution>
