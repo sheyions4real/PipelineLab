@@ -46,25 +46,27 @@ jobs:
             - name: Run Unit Tests
               run: dotnet test --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --verbosity normal
 
-            # CONFIG / .ENV INJECTION: Inject the environment variables from the .env file into the pipeline
-            - name: Generate Production Config / .env
-              if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
-              env:
-                DB_CONNECTION: ${{ secrets.PROD_DB_CONNECTION }}  # inject the DB_CONNECTION secret into the environment variable
-              run: |
-                mkdir -p ./publish_output
-                echo "ASPNETCORE_ENVIRONMENT=Production" > ./publish_output/.env
-                echo "ConnectionStrings__DefaultConnection=$DB_CONNECTION" >> ./publish_output/.env
-
             # 6. PUBLISH & ARTIFACTS: Publish the application to the publish_output folder (MERGE ONLY)
             - name: Publish Application
               if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
               run: dotnet publish MCPServer/MCPServer.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --output ./publish_output --no-build
+            
+              # 7. CONFIG / .ENV INJECTION: Create the .env file inside the published folder
+            - name: Generate Production Config / .env
+              if: github.event_name != 'pull_request'
+              env:
+                DB_CONNECTION: ${{ secrets.PROD_DB_CONNECTION }}
+              run: |
+                echo "ASPNETCORE_ENVIRONMENT=Production" > ./publish_output/.env
+                echo "ConnectionStrings__DefaultConnection=$DB_CONNECTION" >> ./publish_output/.env
 
+            
+            # 8. UPLOAD ARTIFACTS: Zip and upload (including hidden .env files)
             - name: Upload Downloadable Artifacts
               if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
               uses: actions/upload-artifact@v4
               with:
                 name: MCPServer-Publish-Output
                 path: ./publish_output
+                include-hidden-files: true          # include hidden files (like .env) in the artifact
                 retention-days: 7  # keep the artifact for 7 days before deletion
