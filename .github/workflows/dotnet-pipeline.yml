@@ -11,7 +11,7 @@ on:
 
 # Gloal variables available to all jobs
 env:
-    DOTNET_VERSION: '8.0.x'      # .NET version to use in the pipeline
+    DOTNET_VERSION: '11.0.x'      # .NET version to use in the pipeline
     BUILD_CONFIGURATION: 'Release'  # build configuration to use in the pipeline
 
 
