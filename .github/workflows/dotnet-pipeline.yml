@@ -52,6 +52,7 @@ jobs:
               env:
                 DB_CONNECTION: ${{ secrets.PROD_DB_CONNECTION }}  # inject the DB_CONNECTION secret into the environment variable
               run: |
+                mkdir -p ./publish_output
                 echo "ASPNETCORE_ENVIRONMENT=Production" > ./publish_output/.env
                 echo "ConnectionStrings__DefaultConnection=$DB_CONNECTION" >> ./publish_output/.env
 
