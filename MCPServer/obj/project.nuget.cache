@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "dgSpecHash": "0oppVG6ENdQ=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sheyimatthew.omagene\\.nuget\\packages\\microsoft.aspnetcore.openapi\\11.0.0-rc.1.26425.128\\microsoft.aspnetcore.openapi.11.0.0-rc.1.26425.128.nupkg.sha512",
+    "C:\\Users\\sheyimatthew.omagene\\.nuget\\packages\\microsoft.openapi\\3.10.0\\microsoft.openapi.3.10.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://pkgs.dev.azure.com/obs-govm/0df73424-9fc3-408a-b7b6-049c9981aa6a/_packaging/eLicensingFeed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized).",
+      "projectPath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "filePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "targetGraphs": []
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://pkgs.dev.azure.com/obs-govm/0df73424-9fc3-408a-b7b6-049c9981aa6a/_packaging/eLicensingFeed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized).",
+      "projectPath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "filePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "targetGraphs": []
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://pkgs.dev.azure.com/obs-govm/0df73424-9fc3-408a-b7b6-049c9981aa6a/_packaging/eLicensingFeed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized).",
+      "projectPath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "filePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "targetGraphs": []
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://pkgs.dev.azure.com/obs-govm/0df73424-9fc3-408a-b7b6-049c9981aa6a/_packaging/eLicensingFeed/nuget/v3/index.json.\r\n  Response status code does not indicate success: 401 (Unauthorized).",
+      "projectPath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "filePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "targetGraphs": []
+    },
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://pkgs.dev.azure.com/obs-govm/0df73424-9fc3-408a-b7b6-049c9981aa6a/_packaging/eLicensingFeed/nuget/v3/index.json.",
+      "projectPath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\sheyimatthew.omagene\\source\\repos\\PipelineLab\\MCPServer\\MCPServer.csproj",
+      "targetGraphs": []
+    }
+  ]
+}

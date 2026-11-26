@@ -1,0 +1,69 @@
+
+name: .net core CI/CD Pipeline
+
+# 1. Triggers: When the pipeline runs
+on:
+    push:
+        branches: [ main ]      # run the pipeline on pushes to main branch
+    pull_request:
+        branches: [ main ]      # run the pipeline on pull requests to main branch
+
+
+# Gloal variables available to all jobs
+env:
+    DOTNET_VERSION: '8.0.x'      # .NET version to use in the pipeline
+    BUILD_CONFIGURATION: 'Release'  # build configuration to use in the pipeline
+
+
+jobs: 
+    build-test-package:
+        name: Build, Test & Package
+        runs-on: ubuntu-latest          # spins up a frest, clean linum VM to run the job
+
+        steps:
+            # 1. CLEANUP & CHECKOUT: Clean up the workspace and checkout the code from the repo
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                clean: true             # clean the workspace before checking out the code
+                fetch-depth: 0          # fetch all history for all branches and tags
+
+            # 2. SETUP .NET: Setup the .NET SDK version specified in the env variable
+            - name: Setup .NET SDK
+              uses: actions/setup-dotnet@v4
+              with:
+                dotnet-version: ${{ env.DOTNET_VERSION }}  # use the .NET version specified in the env variable
+
+            # 3. RESTORE DEPENDENCIES: Restore the NuGet packages for the solution
+            - name: Restore Dependencies
+              run: dotnet restore
+
+            # 4. BUILD: Build the solution in the specified configuration
+            - name: Build Solution
+              run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+
+            # 5. TEST: Run the unit tests in the solution
+            - name: Run Unit Tests
+              run: dotnet test --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --verbosity normal
+
+            # CONFIG / .ENV INJECTION: Inject the environment variables from the .env file into the pipeline
+            - name: Generate Production Config / .env
+              if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
+              env:
+                DB_CONNECTION: ${{ secrets.PROD_DB_CONNECTION }}  # inject the DB_CONNECTION secret into the environment variable
+              run: |
+                echo "ASPNETCORE_ENVIRONMENT=Production" > ./publish_output/.env
+                echo "ConnectionStrings__DefaultConnection=$DB_CONNECTION" >> ./publish_output/.env
+
+            # 6. PUBLISH & ARTIFACTS: Publish the application to the publish_output folder (MERGE ONLY)
+            - name: Publish Application
+              if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
+              run: dotnet publish MCPServer/MCPServer.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --output ./publish_output --no-build
+
+            - name: Upload Downloadable Artifacts
+              if: github.event_name != 'pull_request'  # only run this step on push events, not on pull requests
+              uses: actions/upload-artifact@v4
+              with:
+                name: MCPServer-Publish-Output
+                path: ./publish_output
+                retention-days: 7  # keep the artifact for 7 days before deletion
